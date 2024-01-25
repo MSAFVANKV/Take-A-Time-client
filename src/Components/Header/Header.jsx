@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import logo from '../../assets/images/logo1.jpeg';
 
 
-function Header() {
+function Header({onLogout}) {
   return (
     <header className="sticky top-0 w-[100%] h-[100px] z-[999] bg-white shadow-md flex items-center justify-between px-4 py-3">
       <Link to="/" className="flex flex-col items-center">
@@ -24,6 +24,7 @@ function Header() {
           create a stand
         </button>
       </Link>
+      <button onClick={onLogout}>logout</button>
     </header>
   );
 }
