@@ -47,7 +47,9 @@ function UserRouter() {
         <Route path="/" element={<Home />} />
         <Route path="/create-stand" element={<SignUp />} />
         <Route path="/login-stand" element={<Login />} />
-        <Route path="/create-stand-steps" element={ isLogin ? <Steps /> : <SignUp />} />
+        {/* <Route path="/create-stand-steps" element={ isLogin ? <Steps /> : <SignUp />} /> */}
+        <Route path="/create-stand-steps" element={  <Steps />} />
+
         <Route path="/dashboard-stand" element={isLogin ? <Dashbaord /> :<Login />}/>
       </Routes>
     </>
