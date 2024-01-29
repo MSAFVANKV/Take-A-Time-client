@@ -2,8 +2,14 @@ import React, { useState } from "react";
 import PersonalDetails from "./PersonalDetails";
 import RouteDetails from "./RouteDetails";
 import PaymentDetails from "./PaymentDetails";
+import { uploadProduct } from "../../Redux/AccountDetailsSlice";
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 function Steps() {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
   const [currentStep, setCurrentStep] = useState(1);
   const [formData, setFormData] = useState({
     personalDetails: {},
@@ -14,7 +20,10 @@ function Steps() {
   //   setCurrentStep((prevStep) => prevStep + 1);
   // };
   const handleNextStep = (data) => {
+    console.log('pre 1',data);
+
     setFormData((prevData) => ({ ...prevData, ...data }));
+    console.log('pre2',data);
     setCurrentStep((prevStep) => prevStep + 1);
   };
 
@@ -23,28 +32,52 @@ function Steps() {
   };
 
   const handleSubmit = (data) => {
-    console.log("Submitted data", data);
+    // Combine data from all three steps
+    console.log(data,'data');
     setFormData((prevData) => ({ ...prevData, ...data }));
-    console.log("Submitted formData", formData);
-
+    onSubmit()
+   
+    //
+  };
+  const onSubmit = ()  => {
+    try {
+      dispatch(uploadProduct(formData)).then((value) => {
+        if (value.payload.status === "fulfilled") {
+          // navigate("/dashboard-stand");
+          alert("Successfully Uploaded Product!");
+        }
+      });
+    } catch (error) {
+      console.log(error);
+    }
   }
-  console.log("Submitted formData", formData);
-
 
   return (
     <div>
       <div className="min-h-screen sm:flex items-center justify-center">
         <div className="bg-white rounded-lg shadow-md p-8">
-        {currentStep === 1 && (
-            <PersonalDetails onNext={handleNextStep} formData={formData.personalDetails} />
+          {currentStep === 1 && (
+            <PersonalDetails
+              onNext={handleNextStep}
+              formData={formData.personalDetails}
+            />
           )}
 
           {currentStep === 2 && (
-            <RouteDetails onNext={handleNextStep} onPrev={handlePrevStep} formData={formData.RouteDetails} />
+            <RouteDetails
+              onNext={handleNextStep}
+              onPrev={handlePrevStep}
+              formData={formData.RouteDetails}
+            />
           )}
 
-          {currentStep === 3 && <PaymentDetails onPrev={handlePrevStep} formData={formData.paymentDetails} finish={handleSubmit}/>}
-
+          {currentStep === 3 && (
+            <PaymentDetails
+              onPrev={handlePrevStep}
+              formData={formData.paymentDetails}
+              finish={handleSubmit}
+            />
+          )}
 
           {/* <div className="flex justify-between mt-8">
             {currentStep > 1 && (

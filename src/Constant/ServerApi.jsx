@@ -3,4 +3,6 @@ export const userRegisterRoute = `${ServerPort}/user/signup`
 export const userLoginRoute = `${ServerPort}/user/login`;
 export const sessionRoute = `${ServerPort}/user/chech-auth`
 export const userLogout = `${ServerPort}/user/logout`
+export const uploadDetails = `${ServerPort}/user/upload-details`
+
 
