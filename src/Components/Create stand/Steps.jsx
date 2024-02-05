@@ -14,7 +14,7 @@ function Steps() {
   const [formData, setFormData] = useState({
     personalDetails: {},
     RouteDetails: {},
-    paymentDetails: {},
+    // paymentDetails: {},
   });
   // const handleNextStep = () => {
   //   setCurrentStep((prevStep) => prevStep + 1);
@@ -43,8 +43,8 @@ function Steps() {
     try {
       dispatch(uploadProduct(formData)).then((value) => {
         if (value.payload.status === "fulfilled") {
-          // navigate("/dashboard-stand");
-          alert("Successfully Uploaded Product!");
+          navigate("/dashboard-stand");
+          alert("Successfully Created Standroom");
         }
       });
     } catch (error) {
@@ -74,7 +74,7 @@ function Steps() {
           {currentStep === 3 && (
             <PaymentDetails
               onPrev={handlePrevStep}
-              formData={formData.paymentDetails}
+              // formData={formData.paymentDetails}
               finish={handleSubmit}
             />
           )}

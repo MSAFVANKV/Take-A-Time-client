@@ -1,7 +1,9 @@
 import React from 'react'
 import {  PayPalButtons } from "@paypal/react-paypal-js";
+import axios from 'axios';
+import { savePaypalPayment } from '../../Constant/ServerApi';
 
-function Paypal() {
+function Paypal({setPaymentStatus}) {
     const serverUrl = "http://localhost:5000"
     const createOrder = async (data) => {
         // Order is created on the server and the order id is returned
@@ -38,7 +40,13 @@ function Paypal() {
             alert('pay success');
             return response.json();
           }).then((data) => {
-            console.log(data,'order');
+            // console.log(data,'order');
+            if(data.status === "COMPLETED"){
+              setPaymentStatus(true)
+              axios.post(`${savePaypalPayment}`, {
+                data
+              })
+            }
           })
         //   return await response.json();
       };

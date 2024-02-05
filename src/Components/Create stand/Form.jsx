@@ -42,13 +42,14 @@ function Form({ formType }) {
         } else {
           // Success case
           toast.success(response.payload.msg, toastOptions);
-          // formik.resetForm();
-          // localStorage.setItem('token', response.payload.token);
+          
           if(formType === "Signup"){
             navigate("/create-stand-steps");
+            window.location.reload();
           } else{
             navigate("/dashboard-stand");
-            window.location.reload()
+            window.location.reload();
+            
           }
           
         }
